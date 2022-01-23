@@ -1,23 +1,24 @@
 import React from "react";
 import { ROW_COUNT, COLUMN_COUNT } from "./config";
 import { useBrain } from "./Cortex";
+import { getId } from './getters'
 
-const initialValues = new Array(ROW_COUNT)
-  .fill(null)
-  .map((_val) =>
-    new Array(COLUMN_COUNT).fill('initial')
-  );
+export function createInitialValues(rowCount, columnCount) {
+  return new Array(rowCount)
+    .fill(null)
+    .map((_val) => new Array(columnCount).fill("initial"));
+}
 
 const Value = React.createContext(null);
 
 export function ValueContext({ children }) {
-  const values = React.useRef(initialValues);
+  const values = React.useRef(createInitialValues(ROW_COUNT, COLUMN_COUNT));
   const brain = useBrain();
 
   React.useEffect(() => {
     const listener = (rowIndex, columnIndex) => (msg) => {
       values.current[rowIndex][columnIndex] = msg;
-    }
+    };
 
     for (let rowIndex = 0; rowIndex < values.current.length; rowIndex++) {
       for (
@@ -25,7 +26,10 @@ export function ValueContext({ children }) {
         columnIndex < values.current[rowIndex].length;
         columnIndex++
       ) {
-        brain.addListener(`${rowIndex}-${columnIndex}`, listener(rowIndex, columnIndex));
+        brain.addListener(
+          getId(rowIndex, columnIndex),
+          listener(rowIndex, columnIndex)
+        );
       }
     }
   }, []);

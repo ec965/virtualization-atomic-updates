@@ -1,4 +1,4 @@
-# Atomic Updates on a Virtualized Grid
+# Single Updates on a Virtualized Grid
 
 To run the project:
 
@@ -22,4 +22,4 @@ Every time data updates, the entire table must re-render.
 
 ## MyGrid
 
-Virtualized grid implementation using Cortex to do atomic updates on individual cells without re-rendering the entire table.
+Virtualized grid implementation using Cortex to do single updates on individual cells without re-rendering the entire table.

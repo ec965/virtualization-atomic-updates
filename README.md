@@ -1,5 +1,13 @@
 # Atomic Updates on a Virtualized Grid
 
+To run the project:
+
+```sh
+yarn dev
+```
+
+Then navigate to `http://localhost:3000`.
+
 ## Cortex
 
 Cortex is a messaging queue that passes updated cell values to each cell.
